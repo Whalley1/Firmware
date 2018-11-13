@@ -370,7 +370,7 @@ MulticopterPositionControl::warn_rate_limited(const char *string)
 int
 MulticopterPositionControl::parameters_update(bool force)
 {
-	bool updated;
+	bool updated = false;
 	struct parameter_update_s param_upd;
 
 	orb_check(_params_sub, &updated);
@@ -403,7 +403,7 @@ MulticopterPositionControl::parameters_update(bool force)
 void
 MulticopterPositionControl::poll_subscriptions()
 {
-	bool updated;
+	bool updated = false;
 
 	orb_check(_vehicle_status_sub, &updated);
 
@@ -713,7 +713,7 @@ MulticopterPositionControl::run()
 				setpoint.x = setpoint.y = setpoint.z = NAN;
 				setpoint.vx = setpoint.vy = setpoint.vz = NAN;
 				setpoint.yawspeed = NAN;
-				setpoint.yaw = _states.yaw;
+				setpoint.yaw = NAN;
 				constraints.landing_gear = vehicle_constraints_s::GEAR_KEEP;
 				// reactivate the task which will reset the setpoint to current state
 				_flight_tasks.reActivate();
